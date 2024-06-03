@@ -1,0 +1,75 @@
+Задание
+
+-- Создание таблицы Genre
+CREATE TABLE Genre (
+    id SERIAL PRIMARY KEY,
+    name VARCHAR(255) NOT NULL
+);
+
+-- Создание таблицы Artist
+CREATE TABLE Artist (
+    id SERIAL PRIMARY KEY,
+    name VARCHAR(255) NOT NULL
+);
+
+-- Создание таблицы Album
+CREATE TABLE Album (
+    id SERIAL PRIMARY KEY,
+    title VARCHAR(255) NOT NULL,
+    release_year INT NOT NULL
+);
+
+-- Создание таблицы Collection
+CREATE TABLE Collection (
+    id SERIAL PRIMARY KEY,
+    title VARCHAR(255) NOT NULL,
+    release_year INT NOT NULL
+);
+
+-- Создание таблицы Track
+CREATE TABLE Track (
+    id SERIAL PRIMARY KEY,
+    title VARCHAR(255) NOT NULL,
+    duration TIME NOT NULL,
+    album_id INT,
+    CONSTRAINT fk_album_id FOREIGN KEY (album_id) REFERENCES Album(id)
+);
+
+-- Создание таблицы Artist_Genre
+CREATE TABLE Artist_Genre (
+    artist_id INT,
+    genre_id INT,
+    PRIMARY KEY (artist_id, genre_id),
+    CONSTRAINT fk_artist_genre_artist FOREIGN KEY (artist_id) REFERENCES Artist(id),
+    CONSTRAINT fk_artist_genre_genre FOREIGN KEY (genre_id) REFERENCES Genre(id)
+);
+
+-- Создание таблицы Artist_Album
+CREATE TABLE Artist_Album (
+    artist_id INT,
+    album_id INT,
+    PRIMARY KEY (artist_id, album_id),
+    CONSTRAINT fk_artist_album_artist FOREIGN KEY (artist_id) REFERENCES Artist(id),
+    CONSTRAINT fk_artist_album_album FOREIGN KEY (album_id) REFERENCES Album(id)
+);
+
+-- Создание таблицы Collection_Track
+CREATE TABLE Collection_Track (
+    collection_id INT,
+    track_id INT,
+    PRIMARY KEY (collection_id, track_id),
+    CONSTRAINT fk_collection_id FOREIGN KEY (collection_id) REFERENCES Collection(id),
+    CONSTRAINT fk_track_id FOREIGN KEY (track_id) REFERENCES Track(id)
+);
+
+-------------------------------------------------------------------------
+
+Второе задание: 
+
+CREATE TABLE Employee (
+    id INT PRIMARY KEY,
+    name VARCHAR(255) NOT NULL,
+    department VARCHAR(255),
+    manager_id INT,
+    CONSTRAINT fk_manager FOREIGN KEY (manager_id) REFERENCES Employee(id)
+);
